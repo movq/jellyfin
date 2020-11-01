@@ -772,7 +772,8 @@ namespace MediaBrowser.Controller.MediaEncoding
 
                 if (encodeCrf >= 0 && encodeCrf <= 51)
                 {
-                    param += " -crf " + encodeCrf.ToString(CultureInfo.InvariantCulture);
+                    if (string.Equals(videoEncoder, "libx264", StringComparison.OrdinalIgnoreCase))
+                        param += " -tune film -x264-params deblock=-2,2 -crf " + encodeCrf.ToString(CultureInfo.InvariantCulture);
                 }
                 else
                 {

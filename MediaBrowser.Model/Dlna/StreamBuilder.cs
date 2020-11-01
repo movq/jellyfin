@@ -874,7 +874,7 @@ namespace MediaBrowser.Model.Dlna
         {
             if ((audioStream.Channels ?? 0) >= 6)
             {
-                return 384000;
+                return 192000;
             }
 
             return 192000;

@@ -1054,6 +1054,21 @@ namespace MediaBrowser.Api.Playback.Hls
 
             if (channels.HasValue)
             {
+                if (state.AudioStream.ChannelLayout == "6.1")
+                {
+                    args += " -af \"pan=stereo|FL < 0.5*FC + 0.707*FL + 0.707*SL + 0.707*BC + 0.5*LFE | FR < 0.6*FC + 0.707*FR + 0.707*SR + 0.707*BC + 0.5*LFE,volume=2\" ";
+                }
+                else if (state.AudioStream.ChannelLayout == "7.1")
+                {
+                    // 7.1            FL+FR+FC+LFE+BL+BR+SL+SR
+                    args += " -af \"pan=stereo|FL < 0.5*FC + 0.707*FL + 0.707*SL + 0.707*BL + 0.5*LFE | FR < 0.6*FC + 0.707*FR + 0.707*SR + 0.707*BR + 0.5*LFE,volume=2\" ";
+                }
+                else if (state.AudioStream.ChannelLayout == "5.1")
+                {
+                    // 5.1            FL + FR + FC + LFE + BL + BR
+                    args += " -af \"pan=stereo|FL < 0.5*FC + 0.707*FL + 0.707*BL + 0.5*LFE | FR < 0.6*FC + 0.707*FR + 0.707*BR + 0.5*LFE,volume=2\" ";
+
+                }
                 args += " -ac " + channels.Value;
             }
 
